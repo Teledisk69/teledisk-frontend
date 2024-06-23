@@ -1,0 +1,29 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Subfiles {
+  fileId  String @unique @db.VarChar(255)
+  file    File   @relation(fields: [fileRef], references: [id])
+  fileRef Int
+}
+
+model File {
+  id       Int       @id @default(autoincrement())
+  fileName String    @db.VarChar(255)
+  fileSize String    @db.VarChar()
+  fileDate DateTime  @default(now())
+  subfile  Subfiles[]
+}

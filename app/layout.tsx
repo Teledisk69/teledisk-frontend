@@ -18,6 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/teledisk.png" sizes="any" />
+        <link rel="shorticon" href="/teledisk.png" sizes="any" />
       </head>
       <body className={inter.className}>{children}</body>
     </html>
